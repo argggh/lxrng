@@ -104,8 +104,8 @@ sub flush {
 	    $self->dbh->do(qq{copy $pre$table from stdin});
 	    while ($len > 0) {
 		$i++;
-		$self->dbh->pg_putline(substr($$cache{$table}, $idx,
-						  $len > 4096 ? 4096 : $len));
+		my $chunk = substr($$cache{$table}, $idx, $len > 4096 ? 4096 : $len);
+		$self->dbh->pg_putline($chunk);
 		$idx += 4096;
 		$len -= 4096;
 	    }
