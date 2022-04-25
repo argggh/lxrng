@@ -44,7 +44,7 @@ sub handle {
 
     $memcached = Cache::Memcached->new({
 	'servers' => ['127.0.0.1:11211'],
-	'namespace' => 'lxrng:$nspace'});
+	'namespace' => "lxrng:$nspace"});
 
     unless ($memcached->set(':caching' => 1)) {
 	$memcached = undef;
