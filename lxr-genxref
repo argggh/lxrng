@@ -350,10 +350,10 @@ sub inventory_release($) {
 
     warn("--- recording all files for $version\n");
 
+    my $root = $rep->node('/', $version) or die "Bad root for release $version";
     my $iter = $rep->iterator($version);
-    LXRng::Index::transaction {
-	my $root = $rep->node('/', $version) or die "Bad root for release $version";
 
+    LXRng::Index::transaction {
 	my $node;
 	while (defined($node = $iter->next)) {
 	    next if $node->name =~ /\.o$/;
