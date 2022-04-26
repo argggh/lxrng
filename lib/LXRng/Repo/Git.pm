@@ -26,6 +26,15 @@ use LXRng::Repo::Git::Iterator;
 use LXRng::Repo::Git::File;
 use LXRng::Repo::Git::Directory;
 
+use vars qw($has_gitraw);
+
+BEGIN {
+    eval { require LXRng::Repo::GitRaw; };
+    if ($@ eq '') {
+	$has_gitraw = 1;
+    }
+}
+
 sub _git_cmd {
     my ($self, $cmd, @args) = @_;
 
@@ -44,6 +53,10 @@ sub _git_cmd {
 
 sub new {
     my ($class, $root, %args) = @_;
+
+    if ($has_gitraw) {
+	return LXRng::Repo::GitRaw->new($root, %args);
+    }
 
     memoize('_release_timestamp');
 
