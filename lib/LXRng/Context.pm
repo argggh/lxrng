@@ -36,9 +36,9 @@ sub new {
 	# different ways.  CGI breaks if SCRIPT_NAME contains regex
 	# metachars, and CGI::Simple does funny things if SCRIPT_NAME
 	# is the empty string.  Do it by hand...
-	my $host = 'http'.($ENV{'HTTPS'} eq 'ON' ? 's' : '').'://'.
+	my $host = $ENV{'REQUEST_SCHEME'}.'://'.
 	    ($ENV{'HTTP_HOST'} || $ENV{'SERVER_NAME'}).
-	    ($ENV{'SERVER_PORT'} == ($ENV{'HTTPS'} eq 'ON' ? 443 : 80)
+	    ($ENV{'SERVER_PORT'} == ($ENV{'REQUEST_SCHEME'} eq 'https' ? 443 : 80)
 	     ? '' : ':'.$ENV{'SERVER_PORT'});
 	my $path = $ENV{'REQUEST_URI'};
 	$path =~ s/\?.*//;

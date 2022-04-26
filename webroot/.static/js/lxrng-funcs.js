@@ -101,7 +101,7 @@ var pending_ver;
 var pending_line;
 
 function ajax_nav() {
-	var file = this.href.replace(/^(http:.*?\/.*?[+][*]\/|)/, '');
+	var file = this.href.replace(/^(https?:.*?\/.*?[+][*]\/|)/, '');
 	load_file(loaded_tree, file, loaded_ver, '');
 	return false;
 }
@@ -426,7 +426,7 @@ function ajax_lookup_anchor(event, anchor) {
 	if (!anchor)
 		anchor = this;
 	
-	lookup = anchor.href.replace(/^(http:.*?\/.*?[+][*]\/|)/, '');
+	lookup = anchor.href.replace(/^(https?:.*?\/.*?[+][*]\/|)/, '');
 
 	var lvar = document.getElementById('ajax_lookup');
 	lvar.value = lookup;
